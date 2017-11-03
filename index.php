@@ -7,8 +7,8 @@
 
 // test -> this is what we receive from the app
 	$_POST['token'] = '';
-	$_POST['endpoint'] = '/event/add/';
-	$_POST['data'] = '{"creator":1, "title":"Event2", "start":"2017-11-03 19:00:00", "end":"2017-11-04 02:00:00", "description":"With date!"}';
+	$_POST['endpoint'] = '/participation/add/';
+	$_POST['data'] = '{"user_id":1, "event_id":2, "participe": 0}';
 // end test
 
 	if(!isset($_POST['token'])){
