@@ -1,11 +1,11 @@
 <?php
 	require_once('Table.php');
 
-	class Right extends Table{
-		public $right;
+	class Rights extends Table{
+		public $rights;
 		public $text;
 
 		public function __construct($val = []){
-			parent::__construct('Right', $val);
+			parent::__construct('Rights', $val);
 		}
 	}

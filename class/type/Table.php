@@ -23,25 +23,42 @@
 		}
 
 		public function get(){
-			return $this->values();
+			$req = self::$db;
+			foreach ($this->values() as $key => $value) {
+				$req = self::$db->where($key, $value);
+			}
+			return $req->get(self::$table);
+		}
+		public function select(){
+			return $this->get();
 		}
 
 		public function insert(){
 			return self::$db->insert(self::$table, $this->values());
 		}
-		public function add(){
-			return $this->insert();
-		}
 
-		public function update(){
-			return self::$db->where(self::$id_name, $this->{self::$id_name})->update(self::$table, $this->values()) ? self::$db->count : false;
+		public function update($val){
+			$req = self::$db;
+			foreach ($this->values() as $key => $value) {
+				$req = self::$db->where($key, $value);
+			}
+			return $req->update(self::$table, $val) ? self::$db->count : false;
 		}
 
 		public function delete(){
-			return self::$db->where(self::$id_name, $this->{self::$id_name})->delete(self::$table);
+			$req = self::$db;
+			foreach ($this->values() as $key => $value) {
+				$req = self::$db->where($key, $value);
+			}
+			return $req->delete(self::$table);
 		}
 
 		public function values(){
-			return get_object_vars($this); 
+			$data = array();
+			foreach (get_object_vars($this) as $key => $value) {
+				if($value != null)
+					$data[$key] = $value;
+			}
+			return $data; 
 		}
 	}	

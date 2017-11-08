@@ -5,10 +5,12 @@
 	    require_once(ROOTPATH.'/'.$filename);
 	}
 
+	// $_POST['data'] = 'event_id%3D1%26user_id%3D1%26participate%3D1';
+	parse_str(urldecode($_POST['data'] ?? ""), $data);
+
 // test -> this is what we receive from the app
 	$_POST['token'] = '';
-	$_POST['endpoint'] = '/participation/add/';
-	$_POST['data'] = '{"user_id":1, "event_id":2, "participe": 0}';
+	// $_POST['endpoint'] = 'participation/insert';
 // end test
 
 	if(!isset($_POST['token'])){
@@ -27,10 +29,12 @@
 	// second -> function
 	$class = ucwords($endpoint[0]);		// Capitalize first letter (for class)
 	$func = $endpoint[1];
-	$data = json_decode($_POST['data'] ?? "[]", true);
 	try{
 		$req = new $class($data);
-		echo json_encode($req->$func());
+		$return = $req->$func();
+		if(!is_array($return))
+			$return = array($return);
+		echo json_encode($return);
 	}catch(Exception $e){
 		exit('Internal Error<br/>'.$e);
 	}
