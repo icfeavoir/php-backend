@@ -37,12 +37,12 @@
 			return self::$db->insert(self::$table, $this->values());
 		}
 
-		public function update($val){
-			$req = self::$db;
-			foreach ($this->values() as $key => $value) {
-				$req = self::$db->where($key, $value);
-			}
-			return $req->update(self::$table, $val) ? self::$db->count : false;
+		/*
+		* Take the id of the object and assign all the others values as an update
+		*/
+		public function update(){
+			$values = $this->values();
+			return self::$db->where(self::$id_name, $values[self::$id_name])->update(self::$table, $values) ? self::$db->count : false;
 		}
 
 		public function delete(){
@@ -60,5 +60,9 @@
 					$data[$key] = $value;
 			}
 			return $data; 
+		}
+
+		public function changeValue($key, $value){
+			$this->{$key} = $value;
 		}
 	}	

@@ -8,6 +8,7 @@
 		public $born;
 		public $created;
 		public $rights;
+		public $firebase_id;
 
 		public function __construct($val = []){
 			parent::__construct('User', $val);

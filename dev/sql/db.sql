@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `born` date NULL DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `rights` int(4) UNSIGNED NOT NULL DEFAULT 0,
+  `firebase_id` text DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   FOREIGN KEY (`rights`) REFERENCES Rights(`rights`)
 );

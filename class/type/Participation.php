@@ -14,11 +14,11 @@
 		}
 
 		public function insert($try=false){	// update or insert if not exist
-			$old = new Participation(array('event_id'=>$this->event_id, 'user_id'=>$this->user_id));
-			$oldRow = $old->get();
-			if(!empty($oldRow)){
-				$old->update($this->values());
-				return $oldRow[0]['participation_id'];
+			$get = (new Participation(['event_id'=>$this->event_id, 'user_id'=>$this->user_id]))->get();
+			if(!empty($get)){	// exists
+				$this->changeValue('participation_id', $get[0]['participation_id']);
+				$this->update();
+				return $get[0]['participation_id'];
 			}else{
 				return parent::insert();
 			}

@@ -17,8 +17,10 @@
 		include_once(ROOTPATH.'/error.php');
 		exit();
 	}
-	if(!isset($_POST['endpoint']))
-		exit('No endpoint');
+	if(!isset($_POST['endpoint'])){
+		include_once(ROOTPATH.'/error.php');
+		exit();
+	}
 
 	//remove first and last '/'
 	$endpoint = explode('/', trim($_POST['endpoint'], "\t\n\r\0\x0B/"));
