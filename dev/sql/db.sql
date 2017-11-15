@@ -1,5 +1,3 @@
-DROP DATABASE ajcBackend;
-
 CREATE DATABASE IF NOT EXISTS ajcBackend;
 use ajcBackend;
 
