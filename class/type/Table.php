@@ -1,4 +1,6 @@
 <?php
+	require_once('class/Notification.php');
+
 	abstract class Table{
 
 		static private $db;
@@ -10,7 +12,8 @@
 			self::$id_name = strtolower($table).'_id';
 			self::$db = $GLOBALS['db'];
 			//get from DB
-			if(gettype($val) == 'integer'){
+			if(!is_array($val) && intval($val) != 0){
+				$val = intval($val);
 				$req = self::$db->where(self::$id_name, $val)->getOne(self::$table);
 				foreach (get_object_vars($this) as $key => $value) {
 					$this->$key = $req[$key];
@@ -64,5 +67,9 @@
 
 		public function changeValue($key, $value){
 			$this->{$key} = $value;
+		}
+
+		public function getValue($key){
+			return $this->{$key};
 		}
 	}	
