@@ -16,7 +16,10 @@
 
 		public function insert(){
 			$id = parent::insert();
-			// $notif = new Notification(Notification::ALL_EXCEPT,)
+			$creator = (new User($_SESSION['my_id']))->getValue('firstName');
+			$notif = new Notification(Notification::ALL_EXCEPT_ME, 'New event', 'Hey, '.$creator.' just created a new event!');
+			$notif->send();
+
 			return $id;
 		}
 	}

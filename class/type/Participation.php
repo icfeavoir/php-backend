@@ -15,6 +15,7 @@
 		}
 
 		public function insert($try=false){	// update or insert if not exist
+			$this->user_id = $_SESSION['my_id'];
 			$statusChanged = false;
 			$get = (new Participation(['event_id'=>$this->event_id, 'user_id'=>$this->user_id]))->get();
 			if(!empty($get)){	// exists
@@ -32,8 +33,15 @@
 			if($statusChanged){		// get fb_id of creator
 				$creator = new User((new Event($this->event_id))->getValue('creator'));
 				if($creator->getValue('user_id') != $this->user_id){	// not me!
-					$notif = new Notification(array($creator->getValue('firebase_id')), 'New guy', 'Looks like someone will come to you event!!!');
-					$notif->send();
+					$msgs = array(
+						0=>(new User($this->user_id))->getValue('firstName').' will come to you event!',
+						2=>'Mother fucker!!! '.(new User($this->user_id))->getValue('firstName').' won\'t come to you event!',
+					);
+					$msg = $msgs[$this->participate] ?? null;
+					if($msg != null){
+						$notif = new Notification(array($creator->getValue('firebase_id')), 'Your event!', $msg);
+						$notif->send();
+					}
 				}
 			}
 
