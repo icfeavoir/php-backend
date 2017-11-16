@@ -16,7 +16,7 @@
 
 		public function insert(){
 			$id = parent::insert();
-			$notif = new Notification(Notification::ALL_EXCEPT,)
+			// $notif = new Notification(Notification::ALL_EXCEPT,)
 			return $id;
 		}
 	}
