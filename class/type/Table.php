@@ -7,10 +7,18 @@
 		static private $table;
 		static private $id_name;
 
+		static private $order_by;
+		static private $limit;
+
 		public function __construct($table, $val){
 			self::$table = $table;
 			self::$id_name = strtolower($table).'_id';
 			self::$db = $GLOBALS['db'];
+
+			self::$order_by = explode(',', $val['order_by'] ?? "");
+			self::$limit = $val['limit'] ?? null;
+			unset($val['order_by']);
+			unset($val['limit']);
 			//get from DB
 			if(!is_array($val) && intval($val) != 0){
 				$val = intval($val);
@@ -30,7 +38,10 @@
 			foreach ($this->values() as $key => $value) {
 				$req = self::$db->where($key, $value);
 			}
-			return $req->get(self::$table);
+			if(!empty(self::$order_by[0])){
+				$req->orderBy(self::$order_by[0], self::$order_by[1] ??  'ASC');
+			}
+			return $req->get(self::$table, self::$limit);
 		}
 		public function select(){
 			return $this->get();
