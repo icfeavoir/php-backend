@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	require_once('class/Notification.php');
 
 	abstract class Table{

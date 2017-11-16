@@ -8,6 +8,7 @@
 		public $last_update;
 		public $participate;
 		public $did_pay;
+		public $confirm_pay;
 
 		public function __construct($val = []){
 			parent::__construct('Participation', $val);
@@ -29,9 +30,11 @@
 			}
 
 			if($statusChanged){		// get fb_id of creator
-				$fb_id = (new User((new Event($this->event_id))->getValue('creator')))->getValue('firebase_id');
-				$notif = new Notification(array($fb_id), 'New guy', 'Looks like someone will come to you event!!!');
-				$notif->send();
+				$creator = new User((new Event($this->event_id))->getValue('creator'));
+				if($creator->getValue('user_id') != $this->user_id){	// not me!
+					$notif = new Notification(array($creator->getValue('firebase_id')), 'New guy', 'Looks like someone will come to you event!!!');
+					$notif->send();
+				}
 			}
 
 			return $valueChanged;

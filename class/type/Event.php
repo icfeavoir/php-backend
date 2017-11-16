@@ -13,4 +13,10 @@
 		public function __construct($val = []){
 			parent::__construct('Event', $val);
 		}
+
+		public function insert(){
+			$id = parent::insert();
+			$notif = new Notification(Notification::ALL_EXCEPT,)
+			return $id;
+		}
 	}

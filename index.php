@@ -1,26 +1,22 @@
 <?php
+	session_start();
+
 	require_once('const.config.php');
 	require_once(ROOTPATH.'/class/ext/import.php');
 	foreach (glob('class/type/*.php') as $filename){
 	    require_once(ROOTPATH.'/'.$filename);
 	}
 
-	// $_POST['data'] = 'event_id%3D1%26user_id%3D1%26participate%3D1';
 	parse_str(urldecode($_POST['data'] ?? ""), $data);
-
-// test -> this is what we receive from the app
 	$_POST['token'] = '';
-	// $_POST['endpoint'] = 'participation/insert';
-// end test
 
-	if(!isset($_POST['token'])){
+
+	if(!isset($_POST['token']) || !isset($_POST['endpoint']) || !isset($_POST['my_id'])){
 		include_once(ROOTPATH.'/error.php');
 		exit();
 	}
-	if(!isset($_POST['endpoint'])){
-		include_once(ROOTPATH.'/error.php');
-		exit();
-	}
+
+	$_SESSION['my_id'] = (int)$_POST['my_id'];
 
 	//remove first and last '/'
 	$endpoint = explode('/', trim($_POST['endpoint'], "\t\n\r\0\x0B/"));

@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `Participation` (
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `participate` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `did_pay` boolean NOT NULL DEFAULT false,
+  `confirm_pay` boolean NOT NULL DEFAULT false,
   PRIMARY KEY (`participation_id`),
   FOREIGN KEY (`event_id`) REFERENCES Event(`event_id`),
   FOREIGN KEY (`user_id`) REFERENCES User(`user_id`)

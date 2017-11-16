@@ -1,8 +1,11 @@
 <?php
-
 	require_once('const.config.php');
 
 	class Notification{
+
+		const ALL = 1;
+		const ALL_EXCEPT_ME = 1<<1;
+
 		public $id_list;
 		public $title;
 		public $body;
