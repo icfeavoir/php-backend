@@ -17,8 +17,11 @@
 
 			self::$order_by = explode(',', $val['order_by'] ?? "");
 			self::$limit = $val['limit'] ?? null;
-			unset($val['order_by']);
-			unset($val['limit']);
+			if(isset($val['order_by']))
+				unset($val['order_by']);
+			if(isset($val['limit']))
+				unset($val['limit']);
+			
 			//get from DB
 			if(!is_array($val) && intval($val) != 0){
 				$val = intval($val);
