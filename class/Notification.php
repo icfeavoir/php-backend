@@ -40,7 +40,7 @@
 				$this->id_list = array_values($list);
 			}
 
-			$msg = array(
+			$msg = array(	// TODO : add an activity & an id
 			    'title'		=> $this->title,
 			    'body'		=> $this->body,
 			);
