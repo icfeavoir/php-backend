@@ -14,8 +14,13 @@
 			$resp = array();
 			// get event
 			$resp['event'] = new Event($event_id);
-			$resp['creator'] = new User((int)$resp['event']->get('creator'));
-			$resp['participate'] = (new Participation(['event_id'=>$event_id]))->get();
+			$resp['creator'] = (new User((int)$resp['event']->creator))->firstName;
+			$resp['participate'] = array();
+			$participateList = (new Participation(['event_id'=>$event_id]))->get();
+			foreach ($participateList as $participate) {
+				$userP = new User((int)$participate['user_id']);
+				$resp['participate'][] = array('firstName'=>$userP->firstName, 'participate'=>$participate['participate']);
+			}
 			return [$resp];
 		}
 	}
