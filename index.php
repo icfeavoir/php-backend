@@ -6,6 +6,7 @@
 	foreach (glob('class/type/*.php') as $filename){
 	    require_once(ROOTPATH.'/'.$filename);
 	}
+	require_once('class/Endpoint.php');
 
 	parse_str(urldecode($_POST['data'] ?? ""), $data);
 	$_POST['token'] = '';
