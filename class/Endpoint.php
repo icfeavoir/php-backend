@@ -19,7 +19,11 @@
 			$participateList = (new Participation(['event_id'=>$event_id]))->get();
 			foreach ($participateList as $participate) {
 				$userP = new User((int)$participate['user_id']);
-				$resp['participate'][] = array('firstName'=>$userP->firstName, 'participate'=>$participate['participate']);
+				$resp['participate'][] = array(
+											'user_id'=>$userP->user_id,
+											'firstName'=>$userP->firstName,
+											'participate'=>$participate['participate']
+										);
 			}
 			return [$resp];
 		}
