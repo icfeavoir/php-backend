@@ -6,6 +6,4 @@
 	define('DB_PASSWD', '');
 	define('DATABASE', '');
 	define('DB_PORT', '');
-
-	define('API_PUSH', '');
 	
