@@ -10,3 +10,5 @@ Le back-end est constitué d'un dossier *class* lui-même constitué de 2 sous d
  - ***type*** Les classes reliées à la base de données et qui permettent les requêtes. Les attributes de ces classes doivent correspondrent au nom des colonnes de la base de données.
 
 La base de données est utilisé grâce à une API trouvée sur GitHub : [PHP-MySQLi-Database-Class](https://github.com/joshcam/PHP-MySQLi-Database-Class#initialization). La variable global qui permet l'accès à la base de données est *$GLOBALS['db']*.
+
+Les classes de BDD peuvent être générées grâce à sql/gen.php.
